@@ -3,6 +3,10 @@
     <PropertyGroup>
         <TargetFramework>netcoreapp3.1</TargetFramework>
         <RootNamespace>IoCContainer</RootNamespace>
+        <Title>IoCContainer</Title>
+        <Authors>MD. Khairul Basar</Authors>
+        <PackageProjectUrl>https://github.com/rofi93/IoCContainer</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/rofi93/IoCContainer</RepositoryUrl>
     </PropertyGroup>
 
     <ItemGroup>
