@@ -7,8 +7,8 @@ namespace IoCContainer.IoC
     public class IoCContainer : IIoCContainer
     {
         private static IIoCContainer _instance;
-        private static readonly object LockObject = new object();
         private readonly IAssemblyManager _assemblyManager;
+        private static readonly object LockObject = new object();
 
         private IoCContainer()
         {
@@ -114,7 +114,7 @@ namespace IoCContainer.IoC
 
                 foreach (var assembly in _assemblyManager.GetAssemblies())
                 {
-                    Configuration.WithAssembly(assembly);
+                    Configuration.WithParts(assembly.GetExportedTypes());
                 }
 
                 Container = Configuration.CreateContainer();
