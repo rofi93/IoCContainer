@@ -1,40 +1,36 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Collections.Generic;
 
 namespace IoCContainer.IoC
 {
-    public class AssemblyManager : IAssemblyManager
+    public class TypeManager : ITypeManager
     {
-        private readonly Dictionary<string, Assembly> _assemblies;
+        private readonly HashSet<Type> _exportedTypes;
         private readonly HashSet<string> _executableExtensions;
 
-        public AssemblyManager()
+        public TypeManager()
         {
-            _assemblies = new Dictionary<string, Assembly>();
+            _exportedTypes = new HashSet<Type>();
             _executableExtensions = new HashSet<string> {".dll", ".exe"};
             AddAssemblies();
         }
 
-        public void AddAssembly<T>()
+        public void AddExportedTypes(Assembly assembly)
         {
-            AddAssembly(typeof(T).Assembly);
+            _exportedTypes.UnionWith(assembly.ExportedTypes);
         }
 
-        public IEnumerable<Assembly> GetAssemblies()
+        public void AddType<T>()
         {
-            return _assemblies.Values.ToList();
+            _exportedTypes.Add(typeof(T));
         }
 
-        private void AddAssembly(Assembly assembly)
+        public IEnumerable<Type> GetExportedTypes()
         {
-            var assemblyName = assembly.FullName;
-            if (string.IsNullOrWhiteSpace(assemblyName) || _assemblies.ContainsKey(assemblyName))
-                return;
-
-            _assemblies.Add(assemblyName, assembly);
+            return _exportedTypes.ToList();
         }
 
         private void AddAssemblies()
@@ -66,7 +62,7 @@ namespace IoCContainer.IoC
                         continue;
 
                     var assembly = Assembly.Load(assemblyName);
-                    AddAssembly(assembly);
+                    AddExportedTypes(assembly);
                 }
                 catch (Exception e)
                 {

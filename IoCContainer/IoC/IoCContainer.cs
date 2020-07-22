@@ -7,18 +7,18 @@ namespace IoCContainer.IoC
     public class IoCContainer : IIoCContainer
     {
         private static IIoCContainer _instance;
-        private readonly IAssemblyManager _assemblyManager;
+        private readonly ITypeManager _typeManager;
         private static readonly object LockObject = new object();
+        
+        private CompositionHost Container { get; set; }
+        private ContainerConfiguration Configuration { get; }
 
         private IoCContainer()
         {
-            _assemblyManager = new AssemblyManager();
+            _typeManager = new TypeManager();
             Configuration = new ContainerConfiguration();
             InitializeContainer();
         }
-
-        private CompositionHost Container { get; set; }
-        private ContainerConfiguration Configuration { get; }
 
         public static IIoCContainer Instance
         {
@@ -112,11 +112,7 @@ namespace IoCContainer.IoC
                 if (Container != null)
                     return;
 
-                foreach (var assembly in _assemblyManager.GetAssemblies())
-                {
-                    Configuration.WithParts(assembly.GetExportedTypes());
-                }
-
+                Configuration.WithParts(_typeManager.GetExportedTypes());
                 Container = Configuration.CreateContainer();
             }
         }
