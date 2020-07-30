@@ -8,6 +8,8 @@
         <PackageProjectUrl>https://github.com/rofi93/IoCContainer</PackageProjectUrl>
         <RepositoryUrl>https://github.com/rofi93/IoCContainer</RepositoryUrl>
         <PackageId>IoCContainer.Core</PackageId>
+        <PackageLicenseExpression>MIT</PackageLicenseExpression>
+        <PackageVersion>1.0.2</PackageVersion>
     </PropertyGroup>
 
     <ItemGroup>
