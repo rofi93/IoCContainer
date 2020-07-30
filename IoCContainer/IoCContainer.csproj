@@ -7,6 +7,7 @@
         <Authors>MD. Khairul Basar</Authors>
         <PackageProjectUrl>https://github.com/rofi93/IoCContainer</PackageProjectUrl>
         <RepositoryUrl>https://github.com/rofi93/IoCContainer</RepositoryUrl>
+        <PackageId>IoCContainer.Core</PackageId>
     </PropertyGroup>
 
     <ItemGroup>
